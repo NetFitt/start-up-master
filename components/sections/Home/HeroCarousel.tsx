@@ -2,113 +2,108 @@
 
 import * as React from "react";
 import Image from "next/image";
-import { motion } from "motion/react";
-import { ChevronRight, ShieldCheck } from "lucide-react";
-import {
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-  CarouselNext,
-  CarouselPrevious,
-} from "@/components/ui/carousel"; // Adjust path based on your folder structure
+import { motion, AnimatePresence } from "motion/react";
+import { ChevronLeft, ChevronRight } from "lucide-react";
+import useEmblaCarousel from "embla-carousel-react";
 import Autoplay from "embla-carousel-autoplay";
+import Fade from "embla-carousel-fade";
 
 const slides = [
-  {
-    id: 1,
-    src: "/images/home/home_hero_1.jpg",
-    title: "Master the Wild Instinct",
-    subtitle: "Algeria's premier hunting grounds, curated for the elite marksman.",
-  },
-  {
-    id: 2,
-    src: "/images/home/home_hero_1.jpg", 
-    title: "Pro-Grade Gear & Guides",
-    subtitle: "Equip yourself with world-class gear for your next Atlas expedition.",
-  },
-  {
-    id: 3,
-    src: "/images/home/home_hero_1.jpg",
-    title: "Heritage & Territory",
-    subtitle: "Discover ancient trails and diverse game across the North African terrain.",
-  },
+  { id: 1, src: "/images/home/home_hero_1.jpg", title: "Master the Wild Instinct", subtitle: "Algeria's premier hunting grounds." },
+  { id: 2, src: "/images/home/home_hero_1.jpg", title: "Pro-Grade Gear", subtitle: "Equip yourself for the Atlas expedition." },
 ];
 
 export function HeroCarousel() {
-  // Autoplay plugin for that "premium" feel
-  const plugin = React.useRef(
-    Autoplay({ delay: 5000, stopOnInteraction: true })
+  // 1. Initialize Embla with Swiper-like Fade and Autoplay
+  const [emblaRef, emblaApi] = useEmblaCarousel(
+    { loop: true, duration: 40 }, // Higher duration = smoother landing
+    [Autoplay({ delay: 6000 }), Fade()]
   );
 
+  const [selectedIndex, setSelectedIndex] = React.useState(0);
+
+  // Sync the dots with the current slide
+  const onSelect = React.useCallback(() => {
+    if (!emblaApi) return;
+    setSelectedIndex(emblaApi.selectedScrollSnap());
+  }, [emblaApi]);
+
+  React.useEffect(() => {
+    if (!emblaApi) return;
+    emblaApi.on("select", onSelect);
+  }, [emblaApi, onSelect]);
+
   return (
-    <section className="relative w-full h-[80dvh] bg-hunter-green overflow-hidden">
-      <Carousel
-        plugins={[plugin.current]}
-        className="w-full h-full"
-        opts={{
-          align: "start",
-          loop: true,
-        }}
-      >
-        <CarouselContent className="-ml-0 h-[80dvh]">
+    <section className="relative w-full lg:max-h-[700px] h-[90dvh] overflow-hidden bg-black">
+      {/* The Viewport */}
+      <div className="overflow-hidden h-full" ref={emblaRef}>
+        <div className="flex h-full">
           {slides.map((slide) => (
-            <CarouselItem key={slide.id} className="pl-0 relative w-full h-full">
-              <div className="relative w-full h-full">
-                {/* Optimized Image */}
-                <Image
-                  src={slide.src}
-                  alt={slide.title}
-                  fill
-                  priority={slide.id === 1}
-                  className="object-cover"
-                  sizes="100vw"
-                />
+            <div key={slide.id} className="relative flex-[0_0_100%] min-w-0 h-full">
+              <Image
+                src={slide.src}
+                alt={slide.title}
+                fill
+                priority
+                className="object-cover"
+              />
+              {/* The "Swiper" Shadow Gradient */}
+              <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-black/2 to-transparent" />
+              <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-black/5 to-transparent" />
 
-                {/* Scrim/Overlay for Readability */}
-                <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent" />
-
-                {/* Content */}
-                <div className="absolute inset-0 flex flex-col justify-end p-8 pb-20">
+              {/* Content Container (MAX-WIDTH 7XL) */}
+              <div className="absolute inset-0 flex flex-col justify-center">
+                <div className="max-w-7xl mx-auto w-full px-8 lg:px-24">
                   <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.5 }}
-                    className="max-w-md space-y-4"
+                    key={selectedIndex} // Triggers animation on slide change
+                    initial={{ opacity: 0, x: -20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ duration: 0.8, ease: "easeOut" }}
+                    className="max-w-xl space-y-4 px-12 "
                   >
-                    {/* <div className="flex items-center gap-2 bg-white/10 backdrop-blur-md border border-white/20 w-fit px-3 py-1 rounded-full">
-                      <ShieldCheck className="w-4 h-4 text-green" />
-                      <span className="text-bone-white text-[10px] font-bold uppercase tracking-[0.2em]">
-                        TuChassou Premium
-                      </span>
-                    </div> */}
-
-                    <h1 className="text-4xl font-black text-bone-white leading-tight uppercase">
+                    <h1 className="text-4xl  text-shadow-premium font-inter md:text-7xl font-black text-white uppercase tracking-tighter">
                       {slide.title}
                     </h1>
+                    <p className="text-[1rem] text-white text-shadow-premium ">{slide.subtitle}</p>
                     
-                    <p className="text-desert-sand font-medium text-lg leading-relaxed">
-                      {slide.subtitle}
-                    </p>
-
-                    <div className="pt-4">
-                      <button className="group flex items-center justify-center gap-3 bg-green-800 text-white py-4 px-8 rounded-xl font-bold text-lg w-full shadow-xl active:scale-95 transition-all">
-                        Réserver Maintenant
-                        <ChevronRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-                      </button>
-                    </div>
                   </motion.div>
                 </div>
               </div>
-            </CarouselItem>
+            </div>
           ))}
-        </CarouselContent>
-
-        {/* Navigation Arrows - Hidden on small mobile, visible on tablet+ */}
-        <div className="hidden md:block">
-          <CarouselPrevious className="left-8 bg-white/10 border-white/20 text-white hover:bg-green-900" />
-          <CarouselNext className="right-8 bg-white/10 border-white/20 text-white hover:bg-green-900" />
         </div>
-      </Carousel>
+      </div>
+
+      {/* 2. CUSTOM NAVIGATION (Aligned to Max-Width) */}
+      <div className="absolute inset-0 pointer-events-none flex items-center">
+        <div className="max-w-7xl mx-auto w-full px-4 md:px-8 flex justify-between items-center">
+          <button 
+            onClick={() => emblaApi?.scrollPrev()}
+            className="pointer-events-auto cursor-pointer p-2 rounded-full bg-white/5 hover:bg-green-800 border border-white/10 text-white transition-all backdrop-blur-sm"
+          >
+            <ChevronLeft className="w-6 h-6" />
+          </button>
+          <button 
+            onClick={() => emblaApi?.scrollNext()}
+            className="pointer-events-auto cursor-pointer p-2 rounded-full bg-white/5 hover:bg-green-800 border border-white/10 text-white transition-all backdrop-blur-sm"
+          >
+            <ChevronRight className="w-6 h-6" />
+          </button>
+        </div>
+      </div>
+
+      {/* 3. PAGINATION DOTS (The Swiper Look) */}
+      <div className="absolute bottom-10 left-0 w-full flex justify-center gap-3">
+        {slides.map((_, i) => (
+          <button
+            key={i}
+            onClick={() => emblaApi?.scrollTo(i)}
+            className={`h-1.5 transition-all duration-500 rounded-full ${
+              selectedIndex === i ? "w-8 bg-green-500" : "w-2 bg-white/30"
+            }`}
+          />
+        ))}
+      </div>
     </section>
   );
 }
