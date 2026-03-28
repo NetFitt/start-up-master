@@ -10,7 +10,7 @@ import Fade from "embla-carousel-fade";
 
 const slides = [
   { id: 1, src: "/images/home/home_hero_1.jpg", title: "Master the Wild Instinct", subtitle: "Algeria's premier hunting grounds." },
-  { id: 2, src: "/images/home/home_hero_1.jpg", title: "Pro-Grade Gear", subtitle: "Equip yourself for the Atlas expedition." },
+  { id: 2, src: "/images/home/home_hero_2.jpg", title: "Pro-Grade Gear", subtitle: "Equip yourself for the Atlas expedition." },
 ];
 
 export function HeroCarousel() {

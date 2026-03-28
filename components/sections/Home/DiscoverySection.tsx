@@ -8,9 +8,9 @@ const DynamicMap = dynamic(() => import("./AlgeriaMap"), {
 });
 
 const wilayas = [
-  { name: "Batna", hunts: 196, src: "/images/home/batna.png" }, // Replace with your Algerian images
-  { name: "Batna", hunts: 653, src: "/images/home/batna.png" },
-  { name: "Batna", hunts: 980, src: "/images/home/batna.png" },
+  { id:1,name: "Batna", hunts: 196, src: "/images/home/batna.png" }, // Replace with your Algerian images
+  { id:2,name: "Batna", hunts: 653, src: "/images/home/batna.png" },
+  { id:3,name: "Batna", hunts: 980, src: "/images/home/batna.png" },
 ];
 
 export default function DiscoverySection() {
@@ -33,7 +33,7 @@ export default function DiscoverySection() {
         {/* WILAYA GRID (The 3 Cards) */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {wilayas.map((wilaya) => (
-            <div key={wilaya.name} className="relative h-64 rounded-2xl overflow-hidden group cursor-pointer shadow-md">
+            <div key={wilaya.id} className="relative h-64 rounded-2xl overflow-hidden group cursor-pointer shadow-md">
               <Image 
                 src={wilaya.src} 
                 alt={wilaya.name} 

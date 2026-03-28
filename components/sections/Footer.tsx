@@ -2,14 +2,14 @@
 import Link from "next/link";
 import { Crosshair } from "lucide-react";
 import { FaFacebook, FaTwitter, FaYoutube, FaInstagram } from "react-icons/fa";
-import Image from "next/image";
+
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="bg-black text-white border-t border-green-900/30 pt-16 pb-8">
-      <div className="max-w-7xl mx-auto px-8">
+    <footer className="bg-[#1c1c1d] text-white border-t border-green-900/30 pt-16 pb-8">
+      <div className="max-w-7xl mx-auto px-4">
         
         {/* Top Section: Links Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-12 mb-16">
@@ -27,7 +27,7 @@ export default function Footer() {
             </p>
             
             {/* Language/Currency Pickers (Matching the screenshot) */}
-            <div className="flex gap-2">
+            {/* <div className="flex gap-2">
               <select className="bg-[#1c1c1d] border border-white/10 text-[10px] uppercase font-bold px-3 py-2 rounded-md outline-none focus:border-green-600">
                 <option>DZD (DA)</option>
                 <option>USD ($)</option>
@@ -38,7 +38,7 @@ export default function Footer() {
                 <option>FR</option>
                 <option>AR</option>
               </select>
-            </div>
+            </div> */}
           </div>
 
           {/* Links Columns */}

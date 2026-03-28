@@ -74,7 +74,7 @@ export default function Header() {
           className="md:hidden z-50 p-2 focus:outline-none bg-white/5 rounded-lg border border-white/10"
           aria-label="Toggle Menu"
         >
-          {isOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+          {isOpen ? <X className="w-6 h-6  text-white" /> : <Menu className="w-6 h-6 text-white" />}
         </button>
       </div>
 
@@ -93,7 +93,7 @@ export default function Header() {
                 key={link.name}
                 href={link.href}
                 onClick={() => setIsOpen(false)}
-                className="text-3xl font-black uppercase tracking-tighter border-b border-white/5 pb-4"
+                className="text-3xl font-black text-white uppercase tracking-tighter border-b border-white/5 pb-4"
               >
                 {link.name}
               </Link>
