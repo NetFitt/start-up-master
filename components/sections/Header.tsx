@@ -1,14 +1,28 @@
 // components/Header.tsx
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import { Menu, X, Crosshair } from "lucide-react";
 import Link from "next/link";
 
 export default function Header() {
   const [isOpen, setIsOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
+  // Logic to detect scroll
+  useEffect(() => {
+    const handleScroll = () => {
+      // Changes color after scrolling 100px (typically the end of a hero top section)
+      if (window.scrollY > 100) {
+        setIsScrolled(true);
+      } else {
+        setIsScrolled(false);
+      }
+    };
 
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
   // Navigation Links
   const navLinks = [
     { name: "Home", href: "/" },
@@ -18,7 +32,11 @@ export default function Header() {
   ];
 
   return (
-    <header className="fixed top-0 w-full z-50 bg-transparent text-white">
+    <header className={`fixed top-0 w-full transition-all duration-300 z-[9999] ${
+      isScrolled 
+        ? "bg-[#1c1c1d] shadow-lg " // Scrolled state: Dark background
+        : "bg-transparent "        // Top state: Transparent
+    }`}>
       <div className="max-w-7xl mx-auto flex items-center justify-between p-4 md:px-8 h-20">
         
         {/* 1. Logo Area */}
@@ -26,7 +44,7 @@ export default function Header() {
           <div className="bg-green-800 p-1.5 rounded-lg group-hover:bg-green-700 transition-colors">
             <Crosshair className="text-white w-5 h-5" />
           </div>
-          <span className="font-serif text-xl font-black tracking-tighter uppercase italic">
+          <span className="font-serif text-xl text-white font-black tracking-tighter uppercase italic">
             you<span className="text-green-600 font-light">hunt</span>
           </span>
         </Link>
