@@ -1,10 +1,13 @@
-# Stage 1: Install dependencies
 FROM node:20-alpine AS deps
 RUN apk add --no-cache libc6-compat
 WORKDIR /app
 COPY package.json package-lock.json* ./
-RUN npm ci
 
+# Increase timeout and add retries for unstable connections
+RUN npm config set fetch-retries 5 && \
+    npm config set fetch-retry-mintimeout 20000 && \
+    npm config set fetch-retry-maxtimeout 120000 && \
+    npm ci
 # Stage 2: Build the app
 FROM node:20-alpine AS builder
 WORKDIR /app
