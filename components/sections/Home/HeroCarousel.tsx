@@ -64,7 +64,7 @@ export function HeroCarousel() {
                     <h1 className="text-4xl  text-shadow-premium font-inter md:text-7xl font-black text-white uppercase tracking-tighter">
                       {slide.title}
                     </h1>
-                    <p className="text-[1rem] text-white text-shadow-premium ">{slide.subtitle}</p>
+                    <p className="text-[1rem] md:text-2xl text-white text-shadow-premium ">{slide.subtitle}</p>
                     
                   </motion.div>
                 </div>

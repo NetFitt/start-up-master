@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Inter, Crimson_Pro } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/sections/Header";
+import Footer from "@/components/sections/Footer";
 
 const inter = Inter({ 
   subsets: ["latin"], 
@@ -32,6 +33,7 @@ export default function RootLayout({
       <body className="min-h-full flex flex-col">
         <Header />
         {children}
+        <Footer />
       </body>
     </html>
   );
