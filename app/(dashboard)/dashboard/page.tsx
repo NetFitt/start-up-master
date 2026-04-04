@@ -13,11 +13,11 @@ export default async function DashboardPage() {
 
   return (
     <div className="space-y-10">
-      <section className="grid grid-cols-1 md:grid-cols-3 gap-6">
+      {/* <section className="grid grid-cols-1 md:grid-cols-3 gap-6">
         <StatCard label="Total Members" value={dbUsers.length.toString()} change="In your jurisdiction" />
         <StatCard label="Active Licenses" value="--" change="Pending Sync" />
         <StatCard label="System Load" value="24%" change="Normal Status" isGreen />
-      </section>
+      </section> */}
 
       <section>
         {/* Pass the role to the client so the form knows what options to show */}

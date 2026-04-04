@@ -19,36 +19,36 @@ export default function UserTableClient({ initialData ,currentUserRole }: { init
     <>
       <div className="flex items-center justify-between mb-6">
         <div>
-          <h2 className="text-2xl font-bold text-white">Account Management</h2>
+          <h2 className="text-2xl font-bold text-slate-900 dark:text-white">Account Management</h2>
           <p className="text-gray-500 text-sm">Control system access and permissions</p>
         </div>
         <button 
           onClick={() => handleOpen()}
-          className="bg-[#22c55e] hover:bg-[#16a34a] text-black font-bold px-5 py-2.5 rounded-xl flex items-center gap-2 transition-all text-sm active:scale-95"
+          className="bg-[#22c55e] hover:bg-[#16a34a] cursor-pointer text-gray-950 font-bold px-5 py-2.5 rounded-xl flex items-center gap-2 transition-all text-sm active:scale-95"
         >
           <UserPlus size={18} />
-          CREATE ACCOUNT
+          Create account
         </button>
       </div>
 
-      <div className="bg-white/5 border border-white/10 rounded-2xl overflow-hidden backdrop-blur-sm">
+      <div className="bg-white dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-2xl overflow-hidden shadow-sm dark:shadow-none backdrop-blur-sm">
         <div className="overflow-x-auto">
           <table className="w-full text-left border-collapse">
             <thead>
-              <tr className="bg-white/5 text-gray-400 text-xs uppercase tracking-widest">
+              <tr className="bg-slate-50 dark:bg-white/5 text-slate-500 dark:text-gray-400 text-xs uppercase tracking-widest">
                 <th className="px-6 py-4 font-semibold">User Details</th>
                 <th className="px-6 py-4 font-semibold">Role</th>
                 <th className="px-6 py-4 font-semibold text-right">Actions</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-white/5">
+            <tbody className="divide-y divide-slate-100 dark:divide-white/5">
               {initialData.map((user, idx) => (
                 <motion.tr 
                   key={user.id}
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: idx * 0.05 }}
-                  className="hover:bg-white/[0.03] transition-colors group"
+                  className="hover:bg-slate-50 dark:hover:bg-white/[0.03] transition-colors group"
                 >
                   <td className="px-6 py-4">
                     <div className="flex items-center gap-3">
@@ -56,8 +56,8 @@ export default function UserTableClient({ initialData ,currentUserRole }: { init
                         {user.name?.charAt(0) || 'U'}
                       </div>
                       <div>
-                        <p className="font-medium text-sm text-gray-200">{user.name}</p>
-                        <p className="text-xs text-gray-500">{user.email}</p>
+                        <p className="font-medium text-sm text-slate-800 dark:text-gray-200">{user.name}</p>
+                        <p className="text-xs text-slate-500">{user.email}</p>
                       </div>
                     </div>
                   </td>
