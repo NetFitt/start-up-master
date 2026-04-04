@@ -3,8 +3,15 @@
 import { motion } from 'motion/react'
 import { LayoutDashboard, Users, Map, Shield, Settings, LogOut, Search, Bell } from 'lucide-react'
 import Link from 'next/link'
+import { signOut } from 'next-auth/react'
 
 export default function DashboardLayout({ children }: { children: React.ReactNode }) {
+  const handleLogout = async () => {
+    await signOut({ 
+      callbackUrl: '/login', // Redirects here after clearing the session
+      redirect: true 
+    })
+  }
   return (
     <div className="min-h-screen bg-[#050805] flex text-white font-sans">
       {/* ─── Sidebar ─── */}
@@ -24,7 +31,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
         </nav>
 
         <div className="pt-6 border-t border-white/5">
-          <button className="flex items-center gap-3 text-gray-500 hover:text-red-400 transition-colors w-full px-2">
+          <button onClick={handleLogout} className="flex cursor-pointer items-center gap-3 text-gray-500 hover:text-red-400 transition-colors w-full px-2">
             <LogOut size={20} />
             <span className="font-medium">Logout</span>
           </button>

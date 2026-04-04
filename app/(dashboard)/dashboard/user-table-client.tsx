@@ -125,12 +125,12 @@ export default function UserTableClient({ initialData }: { initialData: any[] })
                 )}
 
                 <div className="space-y-2">
-                  <label className="text-[10px] font-bold text-gray-500 uppercase tracking-widest">Assigned Role</label>
-                  <select name="role" defaultValue={selectedUser?.role || 'user'}>
-                    <option value="super_admin">Super Admin</option> {/* Match 'admin' from your error params */}
-                    <option value="staff">Staff</option>
-                    <option value="user">Hunter</option>
-                </select>
+                    <label className="text-[10px] font-bold text-gray-500 uppercase tracking-widest">Assigned Role</label>
+                    <select name="role" defaultValue={selectedUser?.role || 'user'} className="w-full bg-white/5 border border-white/10 rounded-xl p-3 text-white focus:border-[#22c55e] outline-none appearance-none">
+                        <option value="admin">Super Admin</option> {/* Match 'admin' from your error params */}
+                        <option value="staff">Staff</option>
+                        <option value="user">Hunter</option>
+                    </select>
                 </div>
 
                 <button 

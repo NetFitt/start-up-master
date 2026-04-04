@@ -21,11 +21,11 @@ export default function DiscoverySection() {
         <h2 className="text-3xl font-bold text-center mb-8 text-black">Popular destinations</h2>
 
         {/* MAP CONTAINER */}
-        <div className="relative w-full h-[500px] rounded-xl overflow-hidden shadow-sm border border-gray-200 mb-8">
+        <div className="relative w-full h-125 rounded-xl overflow-hidden shadow-sm border border-gray-200 mb-8">
           <DynamicMap />
           
           {/* "View Bigger Map" Button like in your image */}
-          <button className="absolute top-4 right-4 z-[500] bg-black text-white px-4 py-2 rounded shadow-lg text-sm font-bold">
+          <button className="absolute top-4 right-4 z-500 bg-black text-white px-4 py-2 rounded shadow-lg text-sm font-bold">
             View bigger map
           </button>
         </div>
