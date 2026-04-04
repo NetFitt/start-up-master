@@ -3,9 +3,11 @@
 import { motion } from 'motion/react'
 import { LayoutDashboard, Users, Map, Shield, Settings, LogOut, Search, Bell } from 'lucide-react'
 import Link from 'next/link'
+import { usePathname } from 'next/navigation'
 import { signOut } from 'next-auth/react'
 
 export default function DashboardLayout({ children }: { children: React.ReactNode }) {
+  const pathname = usePathname()
   const handleLogout = async () => {
     await signOut({ 
       callbackUrl: '/login', // Redirects here after clearing the session
@@ -24,10 +26,9 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
         </div>
 
         <nav className="flex-1 space-y-2">
-          <SidebarItem icon={<LayoutDashboard size={20} />} label="Overview" active />
-          <SidebarItem icon={<Users size={20} />} label="Accounts" />
-          <SidebarItem icon={<Map size={20} />} label="Territories" />
-          <SidebarItem icon={<Settings size={20} />} label="Settings" />
+          <SidebarItem href='/dashboard'  icon={<LayoutDashboard size={20} />} label="Overview" active={pathname === '/dashboard'} />
+          <SidebarItem  href='/dashboard/directorates' icon={<Users size={20} />} label="Directorates" active={pathname.startsWith('/dashboard/directorates')} />
+          
         </nav>
 
         <div className="pt-6 border-t border-white/5">
@@ -71,9 +72,9 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
   )
 }
 
-function SidebarItem({ icon, label, active = false }: { icon: any, label: string, active?: boolean }) {
+function SidebarItem({href , icon, label, active = false }: {  href: string ,icon: any, label: string, active?: boolean }) {
   return (
-    <Link href="#" className={`flex items-center gap-3 px-4 py-3 rounded-xl transition-all group ${active ? 'bg-[#22c55e]/10 text-[#22c55e]' : 'text-gray-400 hover:bg-white/5 hover:text-white'}`}>
+    <Link href={href} className={`flex items-center gap-3 px-4 py-3 rounded-xl transition-all group ${active ? 'bg-[#22c55e]/10 text-[#22c55e]' : 'text-gray-400 hover:bg-white/5 hover:text-white'}`}>
       {icon}
       <span className="font-medium">{label}</span>
       {active && <motion.div layoutId="pill" className="ml-auto w-1.5 h-1.5 rounded-full bg-[#22c55e]" />}
