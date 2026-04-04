@@ -62,10 +62,9 @@ export default async function DirectoratesPage() {
       </div> */}
 
       {/* ─── 3. Modern Table Container ─── */}
-      <div className="border border-slate-200 dark:border-white/5 rounded-2xl bg-white dark:bg-black/20 backdrop-blur-xl shadow-sm dark:shadow-[0_0_60px_-15px_rgba(34,197,94,0.08)] overflow-hidden transition-colors">
         
         {/* Table Controls (Search/Filter inner table) */}
-        <div className="p-6 border-b border-slate-100 dark:border-white/5 flex items-center justify-between gap-6 bg-slate-50/50 dark:bg-black/10">
+        {/* <div className="p-6 border-b border-slate-100 dark:border-white/5 flex items-center justify-between gap-6 bg-slate-50/50 dark:bg-black/10">
           <div className="relative w-96">
              <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-500" size={18} />
              <input 
@@ -78,64 +77,89 @@ export default async function DirectoratesPage() {
             <Filter size={16} />
             Filter Status
           </Button>
-        </div>
+        </div> */}
 
         {/* ─── The Modern Table ─── */}
-        <Table>
-          <TableHeader className="bg-slate-50/50 dark:bg-black/30">
-            <TableRow className="border-b border-slate-200 dark:border-white/10 hover:bg-transparent">
-              <TableHead className="w-25 text-slate-400 dark:text-gray-400 font-bold uppercase tracking-widest text-xs py-5 pl-8">Wilaya Code</TableHead>
-              <TableHead className="text-slate-400 dark:text-gray-400 font-bold uppercase tracking-widest text-xs py-5">Directorate Center</TableHead>
-              <TableHead className="text-slate-400 dark:text-gray-400 font-bold uppercase tracking-widest text-xs py-5">Departments</TableHead>
-              <TableHead className="text-slate-400 dark:text-gray-400 font-bold uppercase tracking-widest text-xs py-5">Account Status</TableHead>
-              <TableHead className="text-right text-slate-400 dark:text-gray-400 font-bold uppercase tracking-widest text-xs py-5 pr-8">Control Panel</TableHead>
-            </TableRow>
-          </TableHeader>
-          <TableBody>
-            {directorates.map((dir) => (
-              <TableRow key={dir.id} className="border-b border-slate-100 dark:border-white/5 last:border-0 group hover:bg-slate-50 dark:hover:bg-white/[0.02] transition-colors">
-                
-                <TableCell className="py-6 pl-8 font-mono text-3xl font-bold text-[#22c55e]">
-                  {String(dir.wilaya_code).padStart(2, '0')}
-                </TableCell>
-                
-                <TableCell className="py-6">
-                  <div className="flex flex-col gap-0.5">
-                    <span className="text-xl font-medium text-slate-900 dark:text-white group-hover:text-[#22c55e] transition">{dir.name}</span>
-                    <div className="flex items-center gap-1.5 text-slate-500">
-                        <MapPin size={14} className="text-[#22c55e]/60" />
-                        <span className="text-sm">Official Hunting Affairs Authority</span>
-                    </div>
-                  </div>
-                </TableCell>
+        {/* ─── Main Container ─── */}
+        <div className="border border-slate-200 dark:border-white/5 rounded-2xl bg-white dark:bg-black/20 backdrop-blur-xl shadow-sm overflow-hidden transition-colors">
+          
+          {/* Table Controls (Search, etc.) stay at the very top */}
+          <div className="p-6 border-b border-slate-100 dark:border-white/5 flex items-center justify-between gap-6 bg-slate-50/50 dark:bg-black/10">
+            <div className="relative w-96">
+              <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" size={18} />
+              <input 
+                type="text" 
+                placeholder="Filter directorates..." 
+                className="w-full bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-full py-3 pl-12 pr-4 text-sm focus:outline-none focus:border-[#22c55e] transition-all"
+              />
+            </div>
+            <Button variant="outline" className="border-slate-200 dark:border-white/10 text-slate-500 dark:text-gray-400 gap-2 rounded-full">
+              <Filter size={16} />
+              Filter
+            </Button>
+          </div>
 
-                <TableCell className="py-6">
-                  <span className="text-slate-600 dark:text-gray-300 font-medium">8 Departments</span>
-                </TableCell>
+          {/* 🚀 THIS DIV MAKES IT SCROLLABLE 🚀 */}
+          <div className="max-h-[calc(100vh-400px)] overflow-auto custom-scrollbar">
+            <Table>
+              {/* 🚀 STICKY HEADER 🚀 */}
+              <TableHeader className="sticky top-0 z-20 bg-slate-50 dark:bg-[#0a0a0a] shadow-sm">
+                <TableRow className="border-b border-slate-200 dark:border-white/10 hover:bg-transparent">
+                  <TableHead className="w-25 text-slate-400 dark:text-gray-400 font-bold uppercase tracking-widest text-xs py-5 pl-8">Wilaya Code</TableHead>
+                  <TableHead className="text-slate-400 dark:text-gray-400 font-bold uppercase tracking-widest text-xs py-5">Directorate Center</TableHead>
+                  <TableHead className="text-slate-400 dark:text-gray-400 font-bold uppercase tracking-widest text-xs py-5">Departments</TableHead>
+                  <TableHead className="text-slate-400 dark:text-gray-400 font-bold uppercase tracking-widest text-xs py-5">Account Status</TableHead>
+                  <TableHead className="text-right text-slate-400 dark:text-gray-400 font-bold uppercase tracking-widest text-xs py-5 pr-8">Control Panel</TableHead>
+                </TableRow>
+              </TableHeader>
+              
+              <TableBody>
+                {directorates.map((dir) => (
+                  <TableRow key={dir.id} className="border-b border-slate-100 dark:border-white/5 last:border-0 group hover:bg-slate-50 dark:hover:bg-white/[0.02] transition-colors">
+                    
+                    <TableCell className="py-6 pl-8 font-mono text-3xl font-bold text-[#22c55e]">
+                      {String(dir.wilaya_code).padStart(2, '0')}
+                    </TableCell>
+                    
+                    <TableCell className="py-6">
+                      <div className="flex flex-col gap-0.5">
+                        <span className="text-xl font-medium text-slate-900 dark:text-white group-hover:text-[#22c55e] transition">{dir.name}</span>
+                        <div className="flex items-center gap-1.5 text-slate-500">
+                            <MapPin size={14} className="text-[#22c55e]/60" />
+                            <span className="text-sm">Official Hunting Affairs Authority</span>
+                        </div>
+                      </div>
+                    </TableCell>
 
-                <TableCell className="py-6">
-                  {dir.is_active ? (
-                    <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#22c55e]/10 text-[#22c55e] text-sm font-semibold border border-[#22c55e]/20">
-                      <div className="w-1.5 h-1.5 rounded-full bg-[#22c55e]" />
-                      Active
-                    </div>
-                  ) : (
-                    <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-red-100 dark:bg-red-950/50 text-red-600 dark:text-red-400 text-sm font-semibold border border-red-200 dark:border-red-800">
-                      <div className="w-1.5 h-1.5 rounded-full bg-red-500 dark:bg-red-400" />
-                      Suspended
-                    </div>
-                  )}
-                </TableCell>
+                    <TableCell className="py-6">
+                      <span className="text-slate-600 dark:text-gray-300 font-medium">8 Departments</span>
+                    </TableCell>
 
-                <TableCell className="py-6 pr-8 text-right">
-                  <ImpersonateButton directorateId={dir.id} />
-                </TableCell>
-              </TableRow>
-            ))}
-          </TableBody>
-        </Table>
+                    <TableCell className="py-6">
+                      {dir.is_active ? (
+                        <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#22c55e]/10 text-[#22c55e] text-sm font-semibold border border-[#22c55e]/20">
+                          <div className="w-1.5 h-1.5 rounded-full bg-[#22c55e]" />
+                          Active
+                        </div>
+                      ) : (
+                        <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-red-100 dark:bg-red-950/50 text-red-600 dark:text-red-400 text-sm font-semibold border border-red-200 dark:border-red-800">
+                          <div className="w-1.5 h-1.5 rounded-full bg-red-500 dark:bg-red-400" />
+                          Suspended
+                        </div>
+                      )}
+                    </TableCell>
+
+                    <TableCell className="py-6 pr-8 text-right">
+                      <ImpersonateButton directorateId={dir.id} />
+                    </TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </div>
+        </div>
       </div>
-    </div>
+    
   );
 }
 

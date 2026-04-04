@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Inter, Crimson_Pro } from "next/font/google";
 import { ThemeProvider } from "@/components/providers/theme-provider";
+import NextTopLoader from 'nextjs-toploader';
 import "./globals.css";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
@@ -16,12 +17,23 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="en" suppressHydrationWarning className={`${inter.variable} ${crimson.variable} h-full antialiased`}>
       <body className="min-h-full bg-[#050805]">
         {/* No Header/Footer here! */}
+        
         <ThemeProvider
           attribute="class"
           defaultTheme="dark"
           enableSystem
           disableTransitionOnChange
         >
+          <NextTopLoader 
+            color="#22c55e" 
+            initialPosition={0.08} 
+            crawlSpeed={200} 
+            height={3} 
+            showSpinner={false} 
+            easing="ease" 
+            speed={200} 
+            shadow="0 0 10px #22c55e,0 0 5px #22c55e"
+          />
           {children}
         </ThemeProvider>
         
