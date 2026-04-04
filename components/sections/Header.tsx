@@ -63,9 +63,9 @@ export default function Header() {
           ))}
           
           {/* Desktop CTA */}
-          <button className="ml-4 bg-green-800 cursor-pointer hover:bg-green-700 text-white px-6 py-2 rounded-full text-xs font-black uppercase tracking-widest transition-all">
+          <a href="/login" className="ml-4 bg-green-800 cursor-pointer hover:bg-green-700 text-white px-6 py-2 rounded-full text-xs font-black uppercase tracking-widest transition-all">
             Join Now
-          </button>
+          </a>
         </nav>
 
         {/* 3. MOBILE BURGER BUTTON (Hidden on md+ screens) */}
