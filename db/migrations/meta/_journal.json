@@ -8,6 +8,13 @@
       "when": 1775253267375,
       "tag": "0000_reflective_gauntlet",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1775293106856,
+      "tag": "0001_blushing_revanche",
+      "breakpoints": true
     }
   ]
 }
