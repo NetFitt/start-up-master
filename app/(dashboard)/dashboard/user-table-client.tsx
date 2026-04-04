@@ -2,8 +2,17 @@
 
 import { useState, useTransition } from 'react'
 import { motion, AnimatePresence } from 'motion/react'
-import { MoreVertical, UserPlus, X, Edit2, Mail, Shield, Lock, Loader2 } from 'lucide-react'
+import { UserPlus, X, Edit2, Loader2 } from 'lucide-react'
 import { upsertUser } from '@/lib/actions/users'
+import { 
+  Table, 
+  TableBody, 
+  TableCell, 
+  TableHead, 
+  TableHeader, 
+  TableRow 
+} from "@/components/ui/table"
+
 
 export default function UserTableClient({ initialData ,currentUserRole }: { initialData: any[] , currentUserRole?: string}) {
   const [isOpen, setIsOpen] = useState(false)
@@ -31,50 +40,60 @@ export default function UserTableClient({ initialData ,currentUserRole }: { init
         </button>
       </div>
 
-      <div className="bg-white dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-2xl overflow-hidden shadow-sm dark:shadow-none backdrop-blur-sm">
-        <div className="overflow-x-auto">
-          <table className="w-full text-left border-collapse">
-            <thead>
-              <tr className="bg-slate-50 dark:bg-white/5 text-slate-500 dark:text-gray-400 text-xs uppercase tracking-widest">
-                <th className="px-6 py-4 font-semibold">User Details</th>
-                <th className="px-6 py-4 font-semibold">Role</th>
-                <th className="px-6 py-4 font-semibold text-right">Actions</th>
-              </tr>
-            </thead>
-            <tbody className="divide-y divide-slate-100 dark:divide-white/5">
+      <div className="rounded-xl border border-slate-200 dark:border-white/10 bg-white dark:bg-black/20 overflow-hidden shadow-sm transition-colors">
+        {/* 🚀 Scrollable Container: Adjust max-h-[500px] to your liking */}
+        <div className="max-h-150 overflow-auto custom-scrollbar">
+          <Table>
+            <TableHeader className="sticky top-0 bg-slate-50 dark:bg-[#0a0a0a] z-10 shadow-sm">
+              <TableRow className="border-b border-slate-200 dark:border-white/10 hover:bg-transparent">
+                <TableHead className="px-6 py-4 font-bold uppercase tracking-widest text-[10px] text-slate-500 dark:text-gray-400">
+                  User Details
+                </TableHead>
+                <TableHead className="px-6 py-4 font-bold uppercase tracking-widest text-[10px] text-slate-500 dark:text-gray-400">
+                  Role
+                </TableHead>
+                <TableHead className="px-6 py-4 font-bold uppercase tracking-widest text-[10px] text-slate-500 dark:text-gray-400 text-right">
+                  Actions
+                </TableHead>
+              </TableRow>
+            </TableHeader>
+
+            <TableBody className="divide-y divide-slate-100 dark:divide-white/5">
               {initialData.map((user, idx) => (
-                <motion.tr 
+                <TableRow 
                   key={user.id}
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: idx * 0.05 }}
-                  className="hover:bg-slate-50 dark:hover:bg-white/[0.03] transition-colors group"
+                  className="hover:bg-slate-50 dark:hover:bg-white/[0.03] transition-colors group border-none"
                 >
-                  <td className="px-6 py-4">
+                  <TableCell className="px-6 py-4">
                     <div className="flex items-center gap-3">
-                      <div className="w-9 h-9 rounded-full bg-emerald-900/50 flex items-center justify-center text-[#22c55e] border border-[#22c55e]/20 font-bold">
+                      <div className="w-9 h-9 rounded-full bg-emerald-100 dark:bg-emerald-900/50 flex items-center justify-center text-[#22c55e] border border-[#22c55e]/20 font-bold">
                         {user.name?.charAt(0) || 'U'}
                       </div>
                       <div>
                         <p className="font-medium text-sm text-slate-800 dark:text-gray-200">{user.name}</p>
-                        <p className="text-xs text-slate-500">{user.email}</p>
+                        <p className="text-xs text-slate-500 dark:text-gray-500">{user.email}</p>
                       </div>
                     </div>
-                  </td>
-                  <td className="px-6 py-4">
-                    <span className="text-[10px] px-2 py-1 rounded bg-white/5 border border-white/10 font-bold uppercase text-emerald-400 tracking-tighter">
+                  </TableCell>
+
+                  <TableCell className="px-6 py-4">
+                    <span className="text-[10px] px-2 py-1 rounded bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 font-bold uppercase text-[#22c55e] tracking-tighter">
                       {user.role}
                     </span>
-                  </td>
-                  <td className="px-6 py-4 text-right">
-                    <button onClick={() => handleOpen(user)} className="p-2 hover:bg-white/10 rounded-lg text-gray-500 hover:text-white transition-colors">
+                  </TableCell>
+
+                  <TableCell className="px-6 py-4 text-right">
+                    <button 
+                      onClick={() => handleOpen(user)} 
+                      className="p-2 hover:bg-slate-200 dark:hover:bg-white/10 rounded-lg text-slate-400 hover:text-slate-900 dark:text-gray-500 dark:hover:text-white transition-colors cursor-pointer"
+                    >
                       <Edit2 size={16} />
                     </button>
-                  </td>
-                </motion.tr>
+                  </TableCell>
+                </TableRow>
               ))}
-            </tbody>
-          </table>
+            </TableBody>
+          </Table>
         </div>
       </div>
 
