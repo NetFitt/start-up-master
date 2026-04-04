@@ -1,4 +1,4 @@
-import NextAuth, { User } from 'next-auth'
+import NextAuth, { type DefaultSession } from "next-auth"
 import Credentials from 'next-auth/providers/credentials'
 import { DrizzleAdapter } from '@auth/drizzle-adapter'
 import { db } from '@/db'
@@ -7,14 +7,41 @@ import { eq } from 'drizzle-orm'
 import bcrypt from 'bcryptjs'
 
 // We add 'unstable_update' to the exports so we can call it from Server Actions
-declare module 'next-auth' {
+declare module "next-auth" {
+  // 1. Extend the User object
   interface User {
-    directorate_id?: string | null;
-    department_id?: string | null;
-    isImpersonating?: boolean;
+    role?: string
+    directorate_id?: string | null
+    department_id?: string | null
+    association_id?: string | null
+    isImpersonating?: boolean
+  }
+  interface JWT {
+    id: string
+    role: string
+    directorate_id: string | null
+    department_id: string | null
+    association_id: string | null
+    isImpersonating: boolean
+    originalId?: string
+    originalName?: string | null
+  }
+  // 2. Extend the Session object (This fixes the 'action' error)
+  interface Session {
+    action?: "IMPERSONATE" | "EXIT"
+    targetId?: string
+    targetName?: string
+    targetDirectorateId?: string
+    user: {
+      id: string
+      role: string
+      directorate_id: string | null
+      department_id: string | null
+      association_id: string | null
+      isImpersonating: boolean
+    } & DefaultSession["user"]
   }
 }
-
 export const { handlers, signIn, signOut, auth, unstable_update } = NextAuth({
   adapter: DrizzleAdapter(db),
   session: { strategy: 'jwt' },

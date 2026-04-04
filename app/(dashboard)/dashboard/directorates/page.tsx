@@ -2,9 +2,9 @@
 import { db } from "@/db";
 import { stateDirectorates } from "@/db/schema/stateDirectorate";
 // import { users } from "@/db/schema/auth"; // Uncomment later for stats join
-import { count, eq } from "drizzle-orm";
 import { Button } from "@/components/ui/button"; // Or your customized button component
 import { MapPin, Users, Building, ShieldCheck, Search, Filter } from "lucide-react";
+import { ImpersonateButton } from "@/components/dashboard/ImpersonateButton";
 
 // Assuming you have shadcn table components, if not, replace with standard styled div structure
 import {
@@ -132,13 +132,8 @@ export default async function DirectoratesPage() {
 
                 {/* 5. Actions Cell - Polished Button */}
                 <TableCell className="py-6 pr-8 text-right">
-                  <Button 
-                    variant="outline" 
-                    className="border-white/10 cursor-pointer  text-gray-950 hover:border-[#14803c] hover:text-[#25412f] gap-2.5 rounded-xl px-5 transition h-10"
-                  >
-                    <Users size={18} className="text-[#14803c]" />
-                    Connect as Admin
-                  </Button>
+                  {/* We pass the dir.id so the Server Action knows WHICH wilaya admin to find */}
+                  <ImpersonateButton directorateId={dir.id} />
                 </TableCell>
               </TableRow>
             ))}

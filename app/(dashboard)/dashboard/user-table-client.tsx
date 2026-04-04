@@ -5,7 +5,7 @@ import { motion, AnimatePresence } from 'motion/react'
 import { MoreVertical, UserPlus, X, Edit2, Mail, Shield, Lock, Loader2 } from 'lucide-react'
 import { upsertUser } from '@/lib/actions/users'
 
-export default function UserTableClient({ initialData }: { initialData: any[] }) {
+export default function UserTableClient({ initialData ,currentUserRole }: { initialData: any[] , currentUserRole?: string}) {
   const [isOpen, setIsOpen] = useState(false)
   const [selectedUser, setSelectedUser] = useState<any>(null)
   const [isPending, startTransition] = useTransition()
@@ -126,11 +126,16 @@ export default function UserTableClient({ initialData }: { initialData: any[] })
 
                 <div className="space-y-2">
                     <label className="text-[10px] font-bold text-gray-500 uppercase tracking-widest">Assigned Role</label>
-                    <select name="role" defaultValue={selectedUser?.role || 'user'} className="w-full bg-white/5 border border-white/10 rounded-xl p-3 text-white focus:border-[#22c55e] outline-none appearance-none">
-                        <option value="admin">Super Admin</option> {/* Match 'admin' from your error params */}
-                        <option value="staff">Staff</option>
-                        <option value="user">Hunter</option>
-                    </select>
+                    <select name="role" defaultValue={selectedUser?.role || 'user'} >
+                      {/* Only show Super Admin option if Mohamed is actually the one looking */}
+                      {currentUserRole === 'super_admin' && (
+                        <option value="super_admin">Super Admin</option>
+                      )}
+                      
+                      <option value="wilaya_admin">Wilaya Admin (Directorate)</option>
+                      <option value="staff">Staff Member</option>
+                      <option value="user">Hunter</option>
+                  </select>
                 </div>
 
                 <button 
