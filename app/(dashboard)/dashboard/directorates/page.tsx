@@ -25,21 +25,22 @@ export default async function DirectoratesPage() {
       {/* ─── 1. Modern Page Header ─── */}
       <div className="flex justify-between items-start gap-6">
         <div>
-          <h1 className="text-4xl font-bold tracking-tighter text-white">State Directorates</h1>
-          <p className="text-gray-400 mt-2 max-w-2xl text-lg">
+          {/* Changed: text-slate-900 (light) / text-white (dark) */}
+          <h1 className="text-4xl font-bold tracking-tighter text-slate-900 dark:text-white">State Directorates</h1>
+          <p className="text-slate-500 dark:text-gray-400 mt-2 max-w-2xl text-lg">
             National HQ Command Center. Overlook, manage, and audit the 58 official administrative centers.
           </p>
         </div>
         
         {/* "Create New" or "Audit Logs" button would go here */}
-        <Button className="bg-[#22c55e] cursor-pointer text-black hover:bg-[#1fae53] gap-2 rounded-xl h-12 px-6 font-semibold">
+        <Button className="bg-[#22c55e] cursor-pointer text-black hover:bg-[#1fae53] gap-2 rounded-xl h-12 px-6 font-semibold shadow-lg shadow-[#22c55e]/20">
           <Building size={20} />
           View Global Audit
         </Button>
       </div>
 
       {/* ─── 2. Key Stats Cards (Modern SaaS style) ─── */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+      {/* <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         <StatCard 
           icon={<Building size={26} className="text-[#22c55e]" />} 
           label="Total Directorates" 
@@ -58,22 +59,22 @@ export default async function DirectoratesPage() {
           value="452" // Placeholder for departments count join
           change="+8 New Dairas"
         />
-      </div>
+      </div> */}
 
       {/* ─── 3. Modern Table Container ─── */}
-      <div className="border border-white/5 rounded-2xl bg-black/20 backdrop-blur-xl shadow-[0_0_60px_-15px_rgba(34,197,94,0.08)] overflow-hidden">
+      <div className="border border-slate-200 dark:border-white/5 rounded-2xl bg-white dark:bg-black/20 backdrop-blur-xl shadow-sm dark:shadow-[0_0_60px_-15px_rgba(34,197,94,0.08)] overflow-hidden transition-colors">
         
         {/* Table Controls (Search/Filter inner table) */}
-        <div className="p-6 border-b border-white/5 flex items-center justify-between gap-6 bg-black/10">
+        <div className="p-6 border-b border-slate-100 dark:border-white/5 flex items-center justify-between gap-6 bg-slate-50/50 dark:bg-black/10">
           <div className="relative w-96">
              <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-500" size={18} />
              <input 
                type="text" 
                placeholder="Filter directorates by name or code..." 
-               className="w-full bg-white/5 border border-white/10 rounded-full py-3 pl-12 pr-4 text-sm focus:outline-none focus:border-[#22c55e] transition-all"
+               className="w-full bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-full py-3 pl-12 pr-4 text-sm focus:outline-none focus:border-[#22c55e] transition-all text-slate-900 dark:text-white"
              />
           </div>
-          <Button variant="outline" className="border-white/10 text-gray-400 gap-2 hover:border-white/20 hover:text-white rounded-full">
+          <Button variant="outline" className="border-slate-200 dark:border-white/10 text-slate-500 dark:text-gray-400 gap-2 hover:bg-slate-50 dark:hover:bg-white/5 rounded-full">
             <Filter size={16} />
             Filter Status
           </Button>
@@ -81,41 +82,37 @@ export default async function DirectoratesPage() {
 
         {/* ─── The Modern Table ─── */}
         <Table>
-          <TableHeader className="bg-black/30">
-            <TableRow className="border-b border-white/10 hover:bg-black/30">
-              <TableHead className="w-[100px] text-gray-400 font-bold uppercase tracking-widest text-xs py-5 pl-8">Wilaya Code</TableHead>
-              <TableHead className="text-gray-400 font-bold uppercase tracking-widest text-xs py-5">Directorate Center</TableHead>
-              <TableHead className="text-gray-400 font-bold uppercase tracking-widest text-xs py-5">Departments</TableHead>
-              <TableHead className="text-gray-400 font-bold uppercase tracking-widest text-xs py-5">Account Status</TableHead>
-              <TableHead className="text-right text-gray-400 font-bold uppercase tracking-widest text-xs py-5 pr-8">Control Panel</TableHead>
+          <TableHeader className="bg-slate-50/50 dark:bg-black/30">
+            <TableRow className="border-b border-slate-200 dark:border-white/10 hover:bg-transparent">
+              <TableHead className="w-25 text-slate-400 dark:text-gray-400 font-bold uppercase tracking-widest text-xs py-5 pl-8">Wilaya Code</TableHead>
+              <TableHead className="text-slate-400 dark:text-gray-400 font-bold uppercase tracking-widest text-xs py-5">Directorate Center</TableHead>
+              <TableHead className="text-slate-400 dark:text-gray-400 font-bold uppercase tracking-widest text-xs py-5">Departments</TableHead>
+              <TableHead className="text-slate-400 dark:text-gray-400 font-bold uppercase tracking-widest text-xs py-5">Account Status</TableHead>
+              <TableHead className="text-right text-slate-400 dark:text-gray-400 font-bold uppercase tracking-widest text-xs py-5 pr-8">Control Panel</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
             {directorates.map((dir) => (
-              <TableRow key={dir.id} className="border-b border-white/5 last:border-0 group hover:bg-white/[0.02] transition-colors">
+              <TableRow key={dir.id} className="border-b border-slate-100 dark:border-white/5 last:border-0 group hover:bg-slate-50 dark:hover:bg-white/[0.02] transition-colors">
                 
-                {/* 1. Code Cell - Bold & Green Accent */}
                 <TableCell className="py-6 pl-8 font-mono text-3xl font-bold text-[#22c55e]">
                   {String(dir.wilaya_code).padStart(2, '0')}
                 </TableCell>
                 
-                {/* 2. Name Cell - Fixed Typography & Placement */}
                 <TableCell className="py-6">
                   <div className="flex flex-col gap-0.5">
-                    <span className="text-xl font-medium text-white group-hover:text-[#22c55e] transition">{dir.name}</span>
-                    <div className="flex items-center gap-1.5 text-gray-500">
+                    <span className="text-xl font-medium text-slate-900 dark:text-white group-hover:text-[#22c55e] transition">{dir.name}</span>
+                    <div className="flex items-center gap-1.5 text-slate-500">
                         <MapPin size={14} className="text-[#22c55e]/60" />
                         <span className="text-sm">Official Hunting Affairs Authority</span>
                     </div>
                   </div>
                 </TableCell>
 
-                {/* 3. Placeholder for Department Count */}
                 <TableCell className="py-6">
-                  <span className="text-gray-300 font-medium">8 Departments</span>
+                  <span className="text-slate-600 dark:text-gray-300 font-medium">8 Departments</span>
                 </TableCell>
 
-                {/* 4. Status Cell - Modern Pill Badge */}
                 <TableCell className="py-6">
                   {dir.is_active ? (
                     <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#22c55e]/10 text-[#22c55e] text-sm font-semibold border border-[#22c55e]/20">
@@ -123,16 +120,14 @@ export default async function DirectoratesPage() {
                       Active
                     </div>
                   ) : (
-                    <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-red-950/50 text-red-400 text-sm font-semibold border border-red-800">
-                      <div className="w-1.5 h-1.5 rounded-full bg-red-400" />
+                    <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-red-100 dark:bg-red-950/50 text-red-600 dark:text-red-400 text-sm font-semibold border border-red-200 dark:border-red-800">
+                      <div className="w-1.5 h-1.5 rounded-full bg-red-500 dark:bg-red-400" />
                       Suspended
                     </div>
                   )}
                 </TableCell>
 
-                {/* 5. Actions Cell - Polished Button */}
                 <TableCell className="py-6 pr-8 text-right">
-                  {/* We pass the dir.id so the Server Action knows WHICH wilaya admin to find */}
                   <ImpersonateButton directorateId={dir.id} />
                 </TableCell>
               </TableRow>

@@ -6,6 +6,7 @@ import { users } from "@/db/schema/auth"
 import { and, eq } from "drizzle-orm"
 import { revalidatePath } from "next/cache"
 
+
 export async function connectToDirectorateAdmin(directorateId: string) {
   const session = await auth()
 
@@ -37,5 +38,14 @@ export async function connectToDirectorateAdmin(directorateId: string) {
   // 4. Clear the cache so the dashboard reflects the new identity immediately
   revalidatePath('/dashboard')
   
+  return { success: true }
+}
+export async function restoreSuperAdminAccess() {
+  // 1. Update the JWT
+  await unstable_update({
+    action: "EXIT" 
+  })
+
+  // 2. Just return success so the client knows it's done
   return { success: true }
 }

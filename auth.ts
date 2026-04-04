@@ -98,13 +98,13 @@ export const { handlers, signIn, signOut, auth, unstable_update } = NextAuth({
       }
 
       // 3. Handle "Switch Back" (Restore Super Admin)
-      if (trigger === "update" && session?.action === "EXIT") {
-        token.id              = token.originalId
-        token.name            = token.originalName as string | null | undefined
-        token.role            = 'super_admin'
-        token.isImpersonating = false
-        token.directorate_id  = null
-        token.department_id   = null
+      if (session?.action === "EXIT") {
+        token.isImpersonating = false;
+        token.id = token.originalId; // Give Mohamed his ID back
+        token.role = 'super_admin';
+        token.name = "Mohamed"; // Or however you store the original name
+        token.directorate_id = null;
+        delete token.originalId; // Clean up
       }
 
       return token
