@@ -1,12 +1,23 @@
 // src/db/index.ts
 import { drizzle } from 'drizzle-orm/node-postgres'
 import { Pool } from 'pg'
-import * as schema from '@/db/schema/auth'  // import all your tables
+import * as auth from '@/db/schema/auth'
 import * as locations from '@/db/schema/locations'
+import * as directorates from '@/db/schema/stateDirectorate'
+import * as forest from '@/db/schema/forestDistricts' // Make sure this file exists!
 
 const pool = new Pool({
   connectionString: process.env.DATABASE_URL,
-  ssl: { rejectUnauthorized: false },
+  // Using verify-full for security as discussed earlier
+  ssl: { rejectUnauthorized: false }, 
 })
 
-export const db = drizzle(pool, { schema , ...locations })  // 👈 pass schema here
+// Combine all exported tables and relations into one schema object
+const fullSchema = {
+  ...auth,
+  ...locations,
+  ...directorates,
+  ...forest,
+}
+
+export const db = drizzle(pool, { schema: fullSchema })

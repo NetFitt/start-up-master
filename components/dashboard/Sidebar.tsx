@@ -38,12 +38,20 @@ export default function Sidebar({ role }: { role?: string }) {
 
         {/* Wilaya Admin Links */}
         {role === 'wilaya_admin' && (
-          <SidebarItem 
-            href="/dashboard/departments" 
-            icon={<Building size={20} />} 
-            label="My Departments" 
-            active={pathname.startsWith('/dashboard/departments')} 
-          />
+          <>
+            {/* <SidebarItem 
+              href="/dashboard/departments" 
+              icon={<Building size={20} />} 
+              label="My Departments" 
+              active={pathname.startsWith('/dashboard/departments')} 
+            /> */}
+            <SidebarItem 
+              href="/dashboard/forest-districts" 
+              icon={<Building size={20} />} 
+              label="Forest Districts" 
+              active={pathname.startsWith('/dashboard/forest-districts')} 
+            />
+          </>
         )}
 
         {/* <SidebarItem 
