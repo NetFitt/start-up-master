@@ -8,6 +8,7 @@ export const roleEnum = pgEnum('role', [
   'baladia_admin', // Ensure this is here!
   'department_admin', 
   'association_president', 
+  "association_admin",
   'hunter'
 ])
 

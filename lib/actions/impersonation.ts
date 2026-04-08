@@ -103,3 +103,55 @@ export async function restoreAccess() {
   revalidatePath('/dashboard')
   return { success: true }
 }
+
+/**
+ * 3. DAIRA/WILAYA/SUPER -> ASSOCIATION ADMIN
+ * Triggered to manage a specific Hunting Association (Club)
+ */
+export async function connectToAssociationAdmin(associationId: string) {
+  const session = await auth()
+  
+  const isSuper = session?.user?.role === 'super_admin'
+  const isWilaya = session?.user?.role === 'wilaya_admin'
+  const isDaira = session?.user?.role === 'baladia_admin'
+
+  if (!isSuper && !isWilaya && !isDaira) {
+    throw new Error("Unauthorized: Insufficient permissions to manage associations.")
+  }
+
+  // Find the 'association_admin' for this specific association
+  const targetAdmin = await db.query.users.findFirst({
+    where: and(
+      eq(users.association_id, associationId),
+      eq(users.role, 'association_admin')
+    )
+  })
+
+  if (!targetAdmin) {
+    throw new Error("No administrator account found for this association.")
+  }
+
+  // Security: Check hierarchy constraints
+  if (isDaira && targetAdmin.forest_district_id !== session.user.forest_district_id) {
+    throw new Error("Unauthorized: This association is outside your Forest District.")
+  }
+  
+  if (isWilaya && targetAdmin.directorate_id !== session.user.directorate_id) {
+    throw new Error("Unauthorized: This association is outside your Wilaya.")
+  }
+
+  // Update JWT with the full path context
+  await unstable_update({
+    action: "IMPERSONATE",
+    targetId: targetAdmin.id,
+    targetName: targetAdmin.name,
+    targetRole: 'association_admin',
+    targetDirectorateId: targetAdmin.directorate_id,
+    targetForestDistrictId: targetAdmin.forest_district_id,
+    targetAssociationId: associationId, // 🚀 This is the critical ID for the club dashboard
+    targetLocationId: targetAdmin.location_id
+  } as any)
+
+  revalidatePath('/dashboard')
+  return { success: true }
+}

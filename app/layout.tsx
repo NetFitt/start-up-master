@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Inter, Crimson_Pro } from "next/font/google";
 import { ThemeProvider } from "@/components/providers/theme-provider";
 import NextTopLoader from 'nextjs-toploader';
+import { Toaster } from "sonner";
 import "./globals.css";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
@@ -35,6 +36,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             shadow="0 0 10px #22c55e,0 0 5px #22c55e"
           />
           {children}
+          {/* 🚀 Step 2: Add the Toaster here */}
+          {/* position="top-right" is standard for dashboards */}
+          {/* richColors makes Success green and Error red */}
+          <Toaster position="top-right" richColors theme="dark" closeButton />
         </ThemeProvider>
         
       </body>

@@ -5,7 +5,7 @@ import { motion, AnimatePresence } from 'motion/react'
 import { signIn } from 'next-auth/react'
 import { useRouter } from 'next/navigation'
 import { Mail, Lock, Eye, EyeOff, AlertCircle, ArrowRight, ShieldCheck } from 'lucide-react'
-
+import Link from 'next/link'
 // ─── Animation Config ──────────────────────────────────────────
 const ease = [0.22, 1, 0.36, 1] as const
 
@@ -185,7 +185,13 @@ export function LoginClient() {
 
           <motion.div variants={itemVariants} className="mt-8 text-center">
             <p className="text-sm text-gray-500">
-              Not a registered hunter? <span className="text-[#22c55e] cursor-pointer hover:underline">Apply for access</span>
+              Not a registered hunter? 
+              <Link 
+                href="/apply-association" // 🚀 Updated path
+                className="text-[#22c55e] font-bold cursor-pointer hover:underline"
+              >
+                Apply for access
+              </Link>
             </p>
           </motion.div>
         </motion.div>

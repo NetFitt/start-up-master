@@ -1,7 +1,7 @@
 'use client'
 
 import { motion } from 'framer-motion'
-import { LayoutDashboard, Users, Shield, Settings, LogOut, Building } from 'lucide-react'
+import { LayoutDashboard, Users, Shield, LogOut, Building ,Landmark, Inbox } from 'lucide-react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { signOut } from 'next-auth/react'
@@ -53,7 +53,25 @@ export default function Sidebar({ role }: { role?: string }) {
             />
           </>
         )}
-
+        {role === 'baladia_admin' && (
+          <>
+            <div className="pt-4 pb-2 px-4 text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 dark:text-gray-500">
+              Management
+            </div>
+            <SidebarItem 
+              href="/dashboard/requests" 
+              icon={<Inbox size={20} />} 
+              label="Inbox (Requests)" 
+              active={pathname.startsWith('/dashboard/requests')} 
+            />
+            <SidebarItem 
+              href="/dashboard/associations" 
+              icon={<Landmark size={20} />} 
+              label="Associations" 
+              active={pathname.startsWith('/dashboard/associations')} 
+            />
+          </>
+        )}
         {/* <SidebarItem 
           href="/dashboard/settings" 
           icon={<Settings size={20} />} 
