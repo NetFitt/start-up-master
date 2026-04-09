@@ -7,6 +7,8 @@ import * as directorates from '@/db/schema/stateDirectorate'
 import * as forest from '@/db/schema/forestDistricts' // Make sure this file exists!
 import * as requests from '@/db/schema/requests' 
 import * as associations from '@/db/schema/associations'
+import * as offers from '@/db/schema/offers'
+
 const pool = new Pool({
   connectionString: process.env.DATABASE_URL,
   // Using verify-full for security as discussed earlier
@@ -21,6 +23,7 @@ const fullSchema = {
   ...forest,
   ...requests,     // 👈 This makes db.query.requests work
   ...associations,
+  ...offers,
 }
 
 export const db = drizzle(pool, { schema: fullSchema })
