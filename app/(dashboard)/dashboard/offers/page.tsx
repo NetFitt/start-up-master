@@ -23,6 +23,7 @@ export default async function WilayaOffersPage() {
     where: wilayaId ? eq(offers.wilayaId, wilayaId) : undefined,
     with: {
       daira: true, // Assuming you set up relations in your schema
+      wilaya: true
     },
     orderBy: [desc(offers.createdAt)],
   })

@@ -10,7 +10,7 @@ export default function Sidebar({ role }: { role?: string }) {
   const pathname = usePathname()
 
   return (
-    <aside className="w-64 border-r border-slate-200 dark:border-white/5 bg-white/70 dark:bg-black/20 backdrop-blur-xl sm:hidden lg:flex flex-col p-6 sticky top-0 h-screen transition-colors duration-300">
+    <aside className="w-64 border-r border-slate-200 dark:border-white/5 bg-white/70 dark:bg-black/20 backdrop-blur-xl sm:hidden lg:flex flex-col p-6 sticky top-0 h-[100vh-53px] transition-colors duration-300">
       <div className="flex items-center gap-3 mb-10 px-2">
         <div className="w-8 h-8 bg-[#22c55e] rounded flex items-center justify-center text-black">
           <Shield size={18} />

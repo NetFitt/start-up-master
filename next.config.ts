@@ -9,6 +9,12 @@ const nextConfig: NextConfig = {
         port: "",
         pathname: "/f/**",
       },
+      {
+        protocol: 'https',
+        hostname: 'ngazytggec.ufs.sh', // 🚀 ADD THIS EXACT DOMAIN
+        port: '',
+        pathname: '/f/**',
+      },
     ],
   },
 };
