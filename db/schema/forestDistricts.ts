@@ -28,17 +28,17 @@ export const forestDistricts = pgTable('forest_districts', {
 }))
 
 // --- RELATIONS ---
-export const forestDistrictRelations = relations(forestDistricts, ({ one, many }) => ({
-// The Parent Wilaya
-    staff: many(users),
-    directorate: one(stateDirectorates, {
-    fields: [forestDistricts.directorate_id],
-    references: [stateDirectorates.id],
-    }),
+// export const forestDistrictRelations = relations(forestDistricts, ({ one, many }) => ({
+// // The Parent Wilaya
+//     staff: many(users),
+//     directorate: one(stateDirectorates, {
+//     fields: [forestDistricts.directorate_id],
+//     references: [stateDirectorates.id],
+//     }),
 
-    // Link to the City details
-    city: one(algeriaCities, {
-        fields: [forestDistricts.location_id],
-        references: [algeriaCities.id],
-    }),
-}))
+//     // Link to the City details
+//     city: one(algeriaCities, {
+//         fields: [forestDistricts.location_id],
+//         references: [algeriaCities.id],
+//     }),
+// }))
