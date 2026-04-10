@@ -17,7 +17,7 @@ export default async function AssociationsPage() {
 
   // Fetch associations for this district
   const districtAssociations = await db.query.associations.findMany({
-    where: districtId ? eq(associations.forestDistrictId, districtId) : undefined,
+    where: districtId ? eq(associations.directorate_id, districtId) : undefined,
     orderBy: [desc(associations.createdAt)],
   })
 
