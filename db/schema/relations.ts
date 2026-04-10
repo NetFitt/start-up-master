@@ -11,7 +11,9 @@ export const stateDirectoratesRelations = relations(stateDirectorates, ({ many }
   departments: many(stateDepartments),
   associations: many(associations),
   offers: many(offers),
-  staff: many(users),
+  // 🚀 Added name to distinguish directorate staff from district staff
+  staff: many(users, { relationName: "directorate_staff" }), 
+  districts: many(forestDistricts),
 }));
 
 // 2. Association Relations
@@ -40,20 +42,27 @@ export const forestDistrictsRelations = relations(forestDistricts, ({ one, many 
     fields: [forestDistricts.directorate_id],
     references: [stateDirectorates.id],
   }),
-  // 🚀 2. FIX: Added 'city' relation so 'with: { city: true }' works
   city: one(algeriaCities, {
     fields: [forestDistricts.location_id],
     references: [algeriaCities.id],
   }),
-  // 🚀 3. FIX: Added 'staff' relation so 'with: { staff: true }' works
-  staff: many(users),
+  // 🚀 Added relationName: "district_staff"
+  staff: many(users, { relationName: "district_staff" }), 
   offers: many(offers),
 }));
 
 // 5. User Relations (To make the 'staff' link work backwards)
 export const usersRelations = relations(users, ({ one }) => ({
+  // 🚀 Added relationName: "district_staff" here too
   district: one(forestDistricts, {
     fields: [users.forest_district_id],
     references: [forestDistricts.id],
+    relationName: "district_staff", 
+  }),
+  // 🚀 Added relationName: "directorate_staff" here too
+  directorate: one(stateDirectorates, {
+    fields: [users.directorate_id],
+    references: [stateDirectorates.id],
+    relationName: "directorate_staff",
   }),
 }));
