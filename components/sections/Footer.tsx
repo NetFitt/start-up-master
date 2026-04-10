@@ -8,7 +8,7 @@ export default function Footer() {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="bg-[#1c1c1d] text-white border-t border-green-900/30 pt-16 pb-8">
+    <footer className="bg-onyx text-white border-t border-green-900/30 pt-16 pb-8">
       <div className="max-w-7xl mx-auto px-4">
         
         {/* Top Section: Links Grid */}

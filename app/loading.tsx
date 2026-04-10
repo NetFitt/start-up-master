@@ -6,7 +6,7 @@ import { Crosshair } from "lucide-react";
 export default function Loading() {
   return (
     // Full screen dark background matching your theme
-    <div className="fixed inset-0 z-[99999] bg-[#1c1c1d] flex flex-col items-center justify-center min-h-screen">
+    <div className="fixed inset-0 z-[99999] bg-onyx flex flex-col items-center justify-center min-h-screen">
       
       <div className="flex items-center gap-4">
         {/* 1. Animated Logo Icon */}

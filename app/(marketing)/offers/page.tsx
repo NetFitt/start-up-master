@@ -46,7 +46,7 @@ export default async function OffersPage({
           <h1 className="text-7xl md:text-9xl font-black text-white tracking-tighter uppercase italic leading-none drop-shadow-2xl">
             Hunt <span className="text-[#22c55e]">Algeria</span>
           </h1>
-          <p className="mt-6 text-slate-300 font-bold uppercase tracking-[0.3em] text-xs md:text-sm">
+          <p className="mt-6 text-white font-bold uppercase tracking-[0.3em] text-xs md:text-sm">
             Explore {results.length} Premium Territories
           </p>
         </div>

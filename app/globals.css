@@ -1,3 +1,5 @@
+
+
 @import "tailwindcss";
 @import "tw-animate-css";
 @import "shadcn/tailwind.css";
@@ -9,6 +11,8 @@
     --color-earth-brown: #6B4423;
     --color-desert-sand: #D4A373;
     --color-blaze-orange: #E85D04;
+    --color-onyx: #1c1c1d;
+    --color-onyx-light: #2a2a2b;
     --color-bone-white: #F4F1DE;
     
   }

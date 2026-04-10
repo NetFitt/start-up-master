@@ -31,13 +31,13 @@ export default function Header() {
   const navLinks = [
     { name: "Home", href: "/" },
     { name: "Offers", href: "/offers" },
-    { name: "Contact", href: "/contact" },
+    { name: "Contact", href: "/#contact" },
   ];
 
   return (
     <header className={`fixed top-0 w-full transition-all duration-500 z-[9999] ${
       shouldShowBg 
-        ? "bg-[#1c1c1d] shadow-xl h-20" // 🚀 Dark background state
+        ? "bg-onyx shadow-xl h-20" // 🚀 Dark background state
         : "bg-transparent h-24"         // 🚀 Transparent top state
     }`}>
       <div className="max-w-7xl mx-auto flex items-center justify-between p-4 md:px-8 h-full">
@@ -91,7 +91,7 @@ export default function Header() {
             animate={{ x: 0 }}
             exit={{ x: "100%" }}
             transition={{ type: "spring", damping: 25, stiffness: 200 }}
-            className="fixed inset-0 bg-[#1c1c1d] pt-28 px-8 flex flex-col gap-8 h-screen md:hidden"
+            className="fixed inset-0 bg-onyx pt-28 px-8 flex flex-col gap-8 h-screen md:hidden"
           >
             {navLinks.map((link) => (
               <Link

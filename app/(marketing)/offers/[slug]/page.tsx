@@ -21,7 +21,7 @@ export default async function OfferDetailsPage({ params }: PageProps) {
   return (
     <div className="min-h-screen bg-white pb-20">
       {/* 🌲 HEADER SPACE - Clean dark background for the nav transition */}
-      <div className="h-20 bg-[#1c1c1d]" />
+      <div className="h-20 bg-onyx" />
 
       <main className="max-w-7xl mx-auto px-6 pt-12">
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-16">
