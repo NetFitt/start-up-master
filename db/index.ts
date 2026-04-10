@@ -8,6 +8,7 @@ import * as forest from '@/db/schema/forestDistricts' // Make sure this file exi
 import * as requests from '@/db/schema/requests' 
 import * as associations from '@/db/schema/associations'
 import * as offers from '@/db/schema/offers'
+import * as relations from '@/db/schema/relations'
 
 const pool = new Pool({
   connectionString: process.env.DATABASE_URL,
@@ -24,6 +25,7 @@ const fullSchema = {
   ...requests,     // 👈 This makes db.query.requests work
   ...associations,
   ...offers,
+  ...relations,
 }
 
 export const db = drizzle(pool, { schema: fullSchema })

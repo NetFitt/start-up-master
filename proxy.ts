@@ -10,10 +10,9 @@ export default auth((req) => {
   
   const isLoginPage = nextUrl.pathname === "/login"
   
-  // 🚀 1. Add your new page here
+  // Routes anyone can see
   const publicRoutes = ["/", "/apply-association", "/offers"] 
   
-  // 🚀 2. Change .includes to .some and startsWith if you want to allow sub-pages (like details)
   const isPublicRoute = publicRoutes.some((route) => 
     nextUrl.pathname === route || nextUrl.pathname.startsWith("/offers/")
   )
@@ -28,7 +27,8 @@ export default auth((req) => {
   
   return null
 })
+
 export const config = {
-  // This tells Next.js to run this logic on every page except static files
-  matcher: ["/((?!api|_next/static|_next/image|favicon.ico).*)"],
+  // 🚀 THE FIX: Add 'images' to the exclusion list below
+  matcher: ["/((?!api|_next/static|_next/image|images|favicon.ico).*)"],
 }

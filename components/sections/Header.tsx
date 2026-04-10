@@ -1,18 +1,22 @@
-// components/Header.tsx
 "use client";
 
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import { Menu, X, Crosshair } from "lucide-react";
 import Link from "next/link";
+import { usePathname } from "next/navigation"; // 🚀 Import usePathname
 
 export default function Header() {
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
-  // Logic to detect scroll
+  const pathname = usePathname(); // 🚀 Get current route
+
+  // 🚀 Logic: Force background if on an offer details page or any page that isn't the Home Hero
+  const isDetailsPage = pathname.startsWith("/offers/");
+  const shouldShowBg = isScrolled || isDetailsPage;
+
   useEffect(() => {
     const handleScroll = () => {
-      // Changes color after scrolling 100px (typically the end of a hero top section)
       if (window.scrollY > 100) {
         setIsScrolled(true);
       } else {
@@ -23,7 +27,7 @@ export default function Header() {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
-  // Navigation Links
+
   const navLinks = [
     { name: "Home", href: "/" },
     { name: "Offers", href: "/offers" },
@@ -31,12 +35,12 @@ export default function Header() {
   ];
 
   return (
-    <header className={`fixed top-0 w-full transition-all duration-300 z-[9999] ${
-      isScrolled 
-        ? "bg-[#1c1c1d] shadow-lg " // Scrolled state: Dark background
-        : "bg-transparent "        // Top state: Transparent
+    <header className={`fixed top-0 w-full transition-all duration-500 z-[9999] ${
+      shouldShowBg 
+        ? "bg-[#1c1c1d] shadow-xl h-20" // 🚀 Dark background state
+        : "bg-transparent h-24"         // 🚀 Transparent top state
     }`}>
-      <div className="max-w-7xl mx-auto flex items-center justify-between p-4 md:px-8 h-20">
+      <div className="max-w-7xl mx-auto flex items-center justify-between p-4 md:px-8 h-full">
         
         {/* 1. Logo Area */}
         <Link href="/" className="flex items-center gap-2 z-50 group">
@@ -48,32 +52,34 @@ export default function Header() {
           </span>
         </Link>
 
-        {/* 2. DESKTOP NAVIGATION (Visible on md+ screens) */}
+        {/* 2. DESKTOP NAVIGATION */}
         <nav className="hidden md:flex items-center gap-8">
           {navLinks.map((link) => (
             <Link
               key={link.name}
               href={link.href}
-              className="text-sm font-bold uppercase tracking-widest text-gray-300 hover:text-white transition-colors relative group"
+              className="text-[10px] font-black uppercase tracking-[0.2em] text-gray-300 hover:text-white transition-colors relative group"
             >
               {link.name}
               <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-green-600 transition-all group-hover:w-full" />
             </Link>
           ))}
           
-          {/* Desktop CTA */}
-          <a href="/login" className="ml-4 bg-green-800 cursor-pointer hover:bg-green-700 text-white px-6 py-2 rounded-full text-xs font-black uppercase tracking-widest transition-all">
+          <Link 
+            href="/login" 
+            className="ml-4 bg-green-800 hover:bg-green-700 text-white px-6 py-2 rounded-full text-[10px] font-black uppercase tracking-widest transition-all shadow-lg shadow-green-900/20"
+          >
             Join Now
-          </a>
+          </Link>
         </nav>
 
-        {/* 3. MOBILE BURGER BUTTON (Hidden on md+ screens) */}
+        {/* 3. MOBILE BURGER BUTTON */}
         <button
           onClick={() => setIsOpen(!isOpen)}
           className="md:hidden z-50 p-2 focus:outline-none bg-white/5 rounded-lg border border-white/10"
           aria-label="Toggle Menu"
         >
-          {isOpen ? <X className="w-6 h-6  text-white" /> : <Menu className="w-6 h-6 text-white" />}
+          {isOpen ? <X className="w-6 h-6 text-white" /> : <Menu className="w-6 h-6 text-white" />}
         </button>
       </div>
 
@@ -105,4 +111,4 @@ export default function Header() {
       </AnimatePresence>
     </header>
   );
-} 
+}

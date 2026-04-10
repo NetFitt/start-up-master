@@ -42,3 +42,21 @@ export async function getPublicOffers(filters: {
 
   return results
 }
+export async function getOfferBySlug(slug: string) {
+  console.log("🔍 FETCHING SLUG:", slug); // Check the terminal
+  
+  const offer = await db.query.offers.findFirst({
+    where: (offers, { eq }) => eq(offers.slug, slug),
+    with: {
+      wilaya: {
+        with: {
+          associations: true 
+        }
+      },
+      daira: true
+    }
+  });
+
+  console.log("📊 QUERY RESULT:", offer ? "Found ✅" : "Not Found ❌");
+  return offer;
+}
