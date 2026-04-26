@@ -73,7 +73,7 @@ export function LoginClient() {
             <div className="w-10 h-10 bg-[#22c55e] rounded-lg flex items-center justify-center">
               <ShieldCheck className="text-black" size={24} />
             </div>
-            <span className="text-2xl font-bold tracking-tighter text-white">YOUHUNT</span>
+            <span className="text-2xl font-bold tracking-tighter text-white">DZHUNT</span>
           </div>
 
           <div>

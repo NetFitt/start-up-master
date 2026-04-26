@@ -15,7 +15,7 @@ export default function Sidebar({ role }: { role?: string }) {
         <div className="w-8 h-8 bg-[#22c55e] rounded flex items-center justify-center text-black">
           <Shield size={18} />
         </div>
-        <span className="font-bold tracking-tighter text-xl text-slate-900 dark:text-white">YOUHUNT</span>
+        <span className="font-bold tracking-tighter text-xl text-slate-900 dark:text-white">DZHUNT</span>
       </div>
 
       <nav className="flex-1 space-y-2">

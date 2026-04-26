@@ -9,7 +9,7 @@ const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 const crimson = Crimson_Pro({ subsets: ["latin"], weight: ["700", "900"], variable: "--font-crimson" });
 
 export const metadata: Metadata = {
-  title: "YOUHUNT Algeria",
+  title: "DZHUNT Algeria",
   description: "Authentic Algerian Expeditions",
 };
 

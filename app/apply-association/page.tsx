@@ -30,7 +30,7 @@ export default async function AssociationRequestPage() {
             <div className="w-12 h-12 bg-[#22c55e] rounded-xl flex items-center justify-center shadow-[0_0_20px_rgba(34,197,94,0.3)]">
               <ShieldCheck className="text-black" size={28} />
             </div>
-            <span className="text-3xl font-black tracking-tighter text-white uppercase">YOUHUNT</span>
+            <span className="text-3xl font-black tracking-tighter text-white uppercase">DZHUNT</span>
           </Link>
 
           <div className="space-y-4">

@@ -86,7 +86,7 @@ export default function Footer() {
         <div className="border-t border-white/5 pt-8 flex flex-col md:flex-row justify-between items-center gap-8">
           
           <div className="text-gray-500 text-[10px] uppercase font-bold tracking-widest">
-            Copyright © {currentYear} youHunt.dz - All Rights Reserved
+            Copyright © {currentYear} DZHUNT.dz - All Rights Reserved
           </div>
 
           {/* App Store Buttons (Using simple placeholder style) */}

@@ -11,7 +11,7 @@ const dmSans = DM_Sans({
 })
 
 export const metadata = {
-  title: 'Login | YOUHUNT Algeria',
+  title: 'Login | DZHUNT Algeria',
   description: 'National Hunting Management System - Member Access',
 }
 
